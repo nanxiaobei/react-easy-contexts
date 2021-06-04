@@ -1,0 +1,42 @@
+{
+  "name": "react-easy-contexts",
+  "version": "0.0.1",
+  "description": "A simple tool to add multiple React contexts easily",
+  "keywords": [
+    "react",
+    "react-spring",
+    "react-beautiful-dnd",
+    "spring",
+    "drag",
+    "drop",
+    "dnd",
+    "dynamic"
+  ],
+  "main": "dist/react-easy-contexts.cjs.js",
+  "module": "dist/react-easy-contexts.esm.js",
+  "repository": "https://github.com/nanxiaobei/react-easy-contexts.git",
+  "author": "nanxiaobei <nanxiaobei@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react-app": "^6.2.2",
+    "prettier": "^2.0.5",
+    "rollup": "^2.22.2",
+    "rollup-plugin-babel": "^4.4.0"
+  }
+}
