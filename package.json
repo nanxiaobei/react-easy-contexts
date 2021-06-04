@@ -4,13 +4,8 @@
   "description": "A simple tool to add multiple React contexts easily.",
   "keywords": [
     "react",
-    "react-spring",
-    "react-beautiful-dnd",
-    "spring",
-    "drag",
-    "drop",
-    "dnd",
-    "dynamic"
+    "hooks",
+    "contexts"
   ],
   "main": "dist/react-easy-contexts.cjs.js",
   "module": "dist/react-easy-contexts.esm.js",
