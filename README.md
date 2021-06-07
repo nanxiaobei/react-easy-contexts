@@ -30,18 +30,18 @@ import AppMain from './AppMain';
 
 export const ctx = create({
   useX() {
-    const [x1, setX1] = useState(11);
-    const [x2, setX2] = useState(12);
+    const [x1, setX1] = useState(0);
+    const [x2, setX2] = useState(0);
     return useMemo(() => ({ x1, x2, setX1, setX2 }), [x1, x2]);
   },
   useY() {
-    const [y1, setY1] = useState(21);
-    const [y2, setY2] = useState(22);
+    const [y1, setY1] = useState(0);
+    const [y2, setY2] = useState(0);
     return useMemo(() => ({ y1, y2, setY1, setY2 }), [y1, y2]);
   },
   useZ() {
-    const [z1, setZ1] = useState(31);
-    const [z2, setZ2] = useState(32);
+    const [z1, setZ1] = useState(0);
+    const [z2, setZ2] = useState(0);
     return useMemo(() => ({ z1, z2, setZ1, setZ2 }), [z1, z2]);
   },
 });
@@ -85,20 +85,20 @@ export const useY = () => useContext(YContext);
 export const useZ = () => useContext(ZContext);
 
 const XProvider = ({ children }) => {
-  const [x1, setX1] = useState(11);
-  const [x2, setX2] = useState(12);
+  const [x1, setX1] = useState(0);
+  const [x2, setX2] = useState(0);
   const value = useMemo(() => ({ x1, x2, setX1, setX2 }), [x1, x2]);
   return <XContext.Provider value={value}>{children}</XContext.Provider>;
 };
 const YProvider = ({ children }) => {
-  const [y1, setY1] = useState(21);
-  const [y2, setY2] = useState(22);
+  const [y1, setY1] = useState(0);
+  const [y2, setY2] = useState(0);
   const value = useMemo(() => ({ y1, y2, setY1, setY2 }), [y1, y2]);
   return <YContext.Provider value={value}>{children}</YContext.Provider>;
 };
 const ZProvider = ({ children }) => {
-  const [z1, setZ1] = useState(31);
-  const [z2, setZ2] = useState(32);
+  const [z1, setZ1] = useState(0);
+  const [z2, setZ2] = useState(0);
   const value = useMemo(() => ({ z1, z2, setZ1, setZ2 }), [z1, z2]);
   return <ZContext.Provider value={value}>{children}</ZContext.Provider>;
 };
