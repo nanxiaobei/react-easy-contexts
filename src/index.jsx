@@ -1,31 +1,29 @@
-import React, { useContext, useMemo, createContext } from 'react';
+import React, { useContext, createContext } from 'react';
 
-const wrappers = Symbol();
+const create = (hookMap) => {
+  const ctx = {};
+  const hookEntries = Object.entries(hookMap);
+  let AppProvider;
 
-export const create = (hookMap) => {
-  const proto = Object.defineProperty({}, wrappers, { value: [] });
-  const contexts = Object.create(proto);
+  for (let i = hookEntries.length - 1; i >= 0; i--) {
+    const [hookKey, useContextValue] = hookEntries[i];
+    const OneContext = createContext({});
 
-  Object.entries(hookMap).forEach(([hookKey, useValue]) => {
-    const AppContext = createContext({});
+    AppProvider = AppProvider
+      ? ({ children }) => (
+          <OneContext.Provider value={useContextValue()}>
+            <AppProvider>{children}</AppProvider>
+          </OneContext.Provider>
+        )
+      : ({ children }) => (
+          <OneContext.Provider value={useContextValue()}>{children}</OneContext.Provider>
+        );
 
-    const useAppContext = () => useContext(AppContext);
-    const AppWrapper = ({ children }) => (
-      <AppContext.Provider value={useValue()}>{children}</AppContext.Provider>
-    );
+    ctx[hookKey] = () => useContext(OneContext); // eslint-disable-line react-hooks/rules-of-hooks
+  }
 
-    contexts[hookKey] = useAppContext;
-    contexts[wrappers].push(AppWrapper);
-  });
-  return contexts;
+  ctx.useProvider = () => AppProvider;
+  return ctx;
 };
 
-export const useProvider = (contexts) => {
-  return useMemo(() => {
-    return contexts[wrappers].reduceRight((Inside, Wrapper) => ({ children }) => (
-      <Wrapper>
-        <Inside>{children}</Inside>
-      </Wrapper>
-    ));
-  }, [contexts]);
-};
+export default create;
