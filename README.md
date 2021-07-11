@@ -25,8 +25,8 @@ npm i react-easy-contexts
 ```jsx
 // App.jsx
 import { useState, useMemo } from 'react';
-import { create, useProvider } from 'react-easy-contexts';
-import AppMain from './AppMain';
+import create from 'react-easy-contexts';
+import Main from './Main';
 
 export const ctx = create({
   useX() {
@@ -47,18 +47,18 @@ export const ctx = create({
 });
 
 const App = () => {
-  const Provider = useProvider(ctx);
+  const Provider = ctx.useProvider();
   return (
     <Provider>
-      <AppMain />
+      <Main />
     </Provider>
   );
 };
 
-// AppMain.jsx
+// Main.jsx
 import { ctx } from './App';
 
-const AppMain = () => {
+const Main = () => {
   const { x1, x2 } = ctx.useX();
   const { y1, y2 } = ctx.useY();
   const { z1, z2 } = ctx.useZ();
@@ -74,6 +74,7 @@ const AppMain = () => {
 **Without `react-easy-contexts`, equals to:**
 
 ```jsx
+// App.jsx
 import { useState, useContext, useMemo, createContext } from 'react';
 
 const XContext = createContext({});
@@ -108,17 +109,17 @@ const App = () => {
     <XProvider>
       <YProvider>
         <ZProvider>
-          <AppMain />
+          <Main />
         </ZProvider>
       </YProvider>
     </XProvider>
   );
 };
 
-// AppMain.jsx
+// Main.jsx
 import { useX, useY, useZ } from './App';
 
-const AppMain = () => {
+const Main = () => {
   const { x1, x2 } = useX();
   const { y1, y2 } = useY();
   const { z1, z2 } = useZ();
@@ -140,15 +141,10 @@ const AppMain = () => {
 ### create
 
 ```js
-const hookMap = { useA() {}, useB() {} };
+import create from 'react-easy-contexts';
 
-const ctx = create(hookMap);
-```
-
-### useProvider
-
-```jsx
-const Provider = useProvider(ctx);
+const ctx = create({ useA() {}, useB() {}, useC() {} });
+// don't use "useProvider" as key, it'll be overwritten.
 ```
 
 ## License
