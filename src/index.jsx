@@ -2,27 +2,26 @@ import React, { useContext, createContext } from 'react';
 
 const create = (hookMap) => {
   const ctx = {};
-  const hookEntries = Object.entries(hookMap);
-  let AppProvider;
 
-  for (let i = hookEntries.length - 1; i >= 0; i--) {
-    const [hookKey, useContextValue] = hookEntries[i];
+  const AppProvider = Object.entries(hookMap).reduceRight((Merged, [hookKey, useValue]) => {
     const OneContext = createContext({});
-
-    AppProvider = AppProvider
-      ? ({ children }) => (
-          <OneContext.Provider value={useContextValue()}>
-            <AppProvider>{children}</AppProvider>
-          </OneContext.Provider>
-        )
-      : ({ children }) => (
-          <OneContext.Provider value={useContextValue()}>{children}</OneContext.Provider>
-        );
-
     ctx[hookKey] = () => useContext(OneContext); // eslint-disable-line react-hooks/rules-of-hooks
-  }
+
+    if (!Merged) {
+      return ({ children }) => (
+        <OneContext.Provider value={useValue()}>{children}</OneContext.Provider>
+      );
+    }
+
+    return ({ children }) => (
+      <OneContext.Provider value={useValue()}>
+        <Merged>{children}</Merged>
+      </OneContext.Provider>
+    );
+  }, null);
 
   ctx.useProvider = () => AppProvider;
+
   return ctx;
 };
 
