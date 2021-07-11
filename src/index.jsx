@@ -7,21 +7,20 @@ const create = (hookMap) => {
     const OneContext = createContext({});
     ctx[hookKey] = () => useContext(OneContext); // eslint-disable-line react-hooks/rules-of-hooks
 
-    if (!Merged) {
-      return ({ children }) => (
-        <OneContext.Provider value={useValue()}>{children}</OneContext.Provider>
-      );
-    }
+    const OneProvider = ({ children }) => (
+      <OneContext.Provider value={useValue()}>{children}</OneContext.Provider>
+    );
+
+    if (!Merged) return OneProvider;
 
     return ({ children }) => (
-      <OneContext.Provider value={useValue()}>
+      <OneProvider>
         <Merged>{children}</Merged>
-      </OneContext.Provider>
+      </OneProvider>
     );
   }, null);
 
   ctx.useProvider = () => AppProvider;
-
   return ctx;
 };
 
