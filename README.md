@@ -26,23 +26,19 @@ npm i react-easy-contexts
 // App.jsx
 import { useState, useMemo } from 'react';
 import create from 'react-easy-contexts';
-import Main from './Main';
 
 export const ctx = create({
   useX() {
-    const [x1, setX1] = useState(0);
-    const [x2, setX2] = useState(0);
-    return useMemo(() => ({ x1, x2, setX1, setX2 }), [x1, x2]);
+    const [x, setX] = useState(0);
+    return useMemo(() => ({ x, setX }), [x]);
   },
   useY() {
-    const [y1, setY1] = useState(0);
-    const [y2, setY2] = useState(0);
-    return useMemo(() => ({ y1, y2, setY1, setY2 }), [y1, y2]);
+    const [y, setY] = useState(0);
+    return useMemo(() => ({ y, setY }), [y]);
   },
   useZ() {
-    const [z1, setZ1] = useState(0);
-    const [z2, setZ2] = useState(0);
-    return useMemo(() => ({ z1, z2, setZ1, setZ2 }), [z1, z2]);
+    const [z, setZ] = useState(0);
+    return useMemo(() => ({ z, setZ }), [z]);
   },
 });
 
@@ -59,13 +55,13 @@ const App = () => {
 import { ctx } from './App';
 
 const Main = () => {
-  const { x1, x2 } = ctx.useX();
-  const { y1, y2 } = ctx.useY();
-  const { z1, z2 } = ctx.useZ();
+  const { x } = ctx.useX();
+  const { y } = ctx.useY();
+  const { z } = ctx.useZ();
 
   return (
     <div>
-      {x1} {x2} {y1} {y2} {z1} {z2}
+      {x} {y} {z}
     </div>
   );
 };
@@ -86,21 +82,18 @@ export const useY = () => useContext(YContext);
 export const useZ = () => useContext(ZContext);
 
 const XProvider = ({ children }) => {
-  const [x1, setX1] = useState(0);
-  const [x2, setX2] = useState(0);
-  const value = useMemo(() => ({ x1, x2, setX1, setX2 }), [x1, x2]);
+  const [x, setX] = useState(0);
+  const value = useMemo(() => ({ x, setX }), [x]);
   return <XContext.Provider value={value}>{children}</XContext.Provider>;
 };
 const YProvider = ({ children }) => {
-  const [y1, setY1] = useState(0);
-  const [y2, setY2] = useState(0);
-  const value = useMemo(() => ({ y1, y2, setY1, setY2 }), [y1, y2]);
+  const [y, setY] = useState(0);
+  const value = useMemo(() => ({ y, setY }), [y]);
   return <YContext.Provider value={value}>{children}</YContext.Provider>;
 };
 const ZProvider = ({ children }) => {
-  const [z1, setZ1] = useState(0);
-  const [z2, setZ2] = useState(0);
-  const value = useMemo(() => ({ z1, z2, setZ1, setZ2 }), [z1, z2]);
+  const [z, setZ] = useState(0);
+  const value = useMemo(() => ({ z, setZ }), [z]);
   return <ZContext.Provider value={value}>{children}</ZContext.Provider>;
 };
 
@@ -120,13 +113,13 @@ const App = () => {
 import { useX, useY, useZ } from './App';
 
 const Main = () => {
-  const { x1, x2 } = useX();
-  const { y1, y2 } = useY();
-  const { z1, z2 } = useZ();
+  const { x } = useX();
+  const { y } = useY();
+  const { z } = useZ();
 
   return (
     <div>
-      {x1} {x2} {y1} {y2} {z1} {z2}
+      {x} {y} {z}
     </div>
   );
 };
@@ -149,4 +142,4 @@ const ctx = create({ useA() {}, useB() {}, useC() {} });
 
 ## License
 
-[MIT License](https://github.com/nanxiaobei/react-easy-contexts/blob/master/LICENSE) © [nanxiaobei](https://mrlee.me/)
+[MIT License](https://github.com/nanxiaobei/react-easy-contexts/blob/master/LICENSE) © [nanxiaobei](https://lee.so/)
